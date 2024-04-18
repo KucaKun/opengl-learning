@@ -4,6 +4,9 @@ project(opengl-learning)
 
 add_executable(main src/main.cpp)
 add_subdirectory(glfw)
+find_package(OpenGL REQUIRED)
 
 target_link_libraries(main glfw)
+target_link_libraries(main ${OPENGL_LIBRARIES})
+
 install(TARGETS main DESTINATION __)
