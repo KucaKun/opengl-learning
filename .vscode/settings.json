@@ -1,0 +1,8 @@
+{
+    "cmake.sourceDirectory": "D:/rep/opengl-learning",
+    "C_Cpp.errorSquiggles": "enabled",
+    "files.associations": {
+        "*.html": "html",
+        "iostream": "cpp"
+    }
+}
