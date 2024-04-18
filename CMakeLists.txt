@@ -8,7 +8,7 @@ add_subdirectory(glfw)
 
 find_package(OpenGL REQUIRED)
 
-set(GLEW_STATIC)
+add_compile_definitions(GLEW_STATIC)
 include_directories(glew/include)
 target_link_libraries(main ${CMAKE_CURRENT_SOURCE_DIR}/glew/lib/Release/x64/glew32s.lib)
 
