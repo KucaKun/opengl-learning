@@ -1,6 +1,13 @@
 #pragma once
 #include <GLFW/glfw3.h>
+#include <fstream>
 #include <iostream>
+#include <sstream>
+struct ShaderSources {
+    std::string vertex_shader;
+    std::string fragment_shader;
+};
+
 static unsigned int compile_shader(unsigned int type, const std::string& source) {
     unsigned int id = glCreateShader(type);
     const char* src = source.c_str();
@@ -51,4 +58,26 @@ static unsigned int create_shader(const std::string& vertex_shader, const std::s
     glDeleteShader(vs);
     glDeleteShader(fs);
     return program;
+}
+static ShaderSources read_sources_from_file(std::string filepath) {
+    std::ifstream stream(filepath);
+    std::string line;
+    std::stringstream ss[2];
+    enum class ShaderType { NONE = -1, VERTEX = 0, FRAGMENT = 1 };
+    ShaderType mode = ShaderType::NONE;
+    for (std::string line; std::getline(stream, line);) {
+        if (line.find("#shader") != std::string::npos) {
+            if (line.find("vertex") != std::string::npos) {
+                mode = ShaderType::VERTEX;
+            } else if (line.find("fragment") != std::string::npos) {
+                mode = ShaderType::FRAGMENT;
+            }
+            continue;
+        }
+        ss[(int) mode] << line << std::endl;
+    }
+    ShaderSources sources;
+    sources.vertex_shader   = ss[(int) ShaderType::VERTEX].str();
+    sources.fragment_shader = ss[(int) ShaderType::FRAGMENT].str();
+    return sources;
 }

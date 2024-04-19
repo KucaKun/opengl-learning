@@ -42,23 +42,8 @@ int main(void) {
         0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0); // describe how the data in the buffer is structured
 
 
-    std::string vertex_shader = "#version 330 core \n"
-                                "\n"
-                                "layout(location = 0) in vec4 position;\n"
-                                "\n"
-                                "void main(){\n"
-                                " gl_Position = position;\n"
-                                "}\n";
-
-    std::string fragment_shader = "#version 330 core \n"
-                                  "\n"
-                                  "layout(location = 0) out vec4 color;\n"
-                                  "\n"
-                                  "void main(){\n"
-                                  " color = vec4(1.0, 0.0, 0.0, 1.0);\n"
-                                  "}\n";
-
-    unsigned int shader = create_shader(vertex_shader, fragment_shader);
+    ShaderSources sources = read_sources_from_file("basic.glsl");
+    unsigned int shader   = create_shader(sources.vertex_shader, sources.fragment_shader);
     glUseProgram(shader);
 
     while (!glfwWindowShouldClose(window)) {

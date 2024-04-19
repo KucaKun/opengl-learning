@@ -19,3 +19,8 @@ target_link_libraries(main glfw)
 target_link_libraries(main ${OPENGL_LIBRARIES})
 
 install(TARGETS main DESTINATION __)
+
+add_custom_command(TARGET main POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/shaders"
+        $<TARGET_FILE_DIR:main>)
