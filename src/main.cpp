@@ -23,13 +23,14 @@ GLFWwindow* initialize_gl_context() {
 
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
-
+    glfwSwapInterval(1);
     glewInit();
     glEnable(GL_DEBUG_OUTPUT);
     glDebugMessageCallback(error, nullptr);
     std::cout << glGetString(GL_VERSION) << std::endl;
     return window;
 }
+
 int main(void) {
     GLFWwindow* window = initialize_gl_context();
     float positions[]  = {
@@ -70,11 +71,22 @@ int main(void) {
     unsigned int shader   = create_shader(sources.vertex_shader, sources.fragment_shader);
     glUseProgram(shader);
 
+    // prepare uniforms
+    int location = glGetUniformLocation(shader, "u_color");
+    glUniform4f(location, 0.12, 0.2, 1.0, 1.0);
+
+    float frame = 0;
     while (!glfwWindowShouldClose(window)) {
         glClear(GL_COLOR_BUFFER_BIT);
+        auto i = (int) frame % 144;
+        glUniform4f(location, 1.0 / i, 1.0 / (i / 3.), 1.0 / (i / 2.), 1.0);
+        glBufferData(GL_ARRAY_BUFFER, 4 * 2 * sizeof(float), positions, GL_STATIC_DRAW); // fill buffer with data
+
+
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr); // draw index buffer
         glfwSwapBuffers(window);
         glfwPollEvents();
+        frame++;
     }
     glDeleteProgram(shader);
     glfwTerminate();
