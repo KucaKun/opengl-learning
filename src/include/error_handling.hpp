@@ -1,5 +1,5 @@
 #pragma once
-#include <GLFW/glfw3.h>
+#include <GL/glew.h>
 #include <format>
 #include <iostream>
 void GLAPIENTRY error(
