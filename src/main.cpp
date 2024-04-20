@@ -5,8 +5,9 @@
 #include "error_handling.hpp"
 #include "index_buffer.hpp"
 #include "shaders.hpp"
+#include "vertex_array.hpp"
 #include "vertex_buffer.hpp"
-#define COUNT 3
+#include "vertex_buffer_layout.hpp"
 
 GLFWwindow* initialize_gl_context() {
     GLFWwindow* window;
@@ -54,18 +55,15 @@ int main(void) {
         0.5f,
     };
     unsigned int indices[]{0, 1, 2, 2, 3, 0};
-    unsigned int vao; // vertex array object
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
 
-    // Prepare buffer
+    VertexArray vao;
+
     VertexBuffer vb(positions, 4 * 2 * sizeof(float));
 
+    VertexBufferLayout layout;
+    layout.push(GL_FLOAT, 2);
 
-    // Prepare attributes
-    glVertexAttribPointer(
-        0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0); // describe how the data in the buffer is structured
-    glEnableVertexAttribArray(0); // enable the structuring that was set
+    vao.add_buffer(vb, layout);
 
     // Prepare index buffer
     IndexBuffer ibo(indices, 6);
@@ -83,8 +81,8 @@ int main(void) {
     while (!glfwWindowShouldClose(window)) {
         // prepare frame
         glClear(GL_COLOR_BUFFER_BIT);
-        glBindVertexArray(vao); // has to be bound to use
 
+        vao.bind();
         ibo.bind();
 
         // modifying the uniforms
