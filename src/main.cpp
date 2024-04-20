@@ -56,17 +56,17 @@ int main(void) {
     };
     unsigned int indices[]{0, 1, 2, 2, 3, 0};
 
-    VertexArray vao;
+    VertexArray va;
 
     VertexBuffer vb(positions, 4 * 2 * sizeof(float));
 
     VertexBufferLayout layout;
     layout.push(GL_FLOAT, 2);
 
-    vao.add_buffer(vb, layout);
+    va.add_buffer(vb, layout);
 
     // Prepare index buffer
-    IndexBuffer ibo(indices, 6);
+    IndexBuffer ib(indices, 6);
 
     // load shaders
     ShaderSources sources = read_sources_from_file("basic.glsl");
@@ -76,14 +76,14 @@ int main(void) {
     // prepare uniforms
     int location = glGetUniformLocation(shader, "u_color");
     glUniform4f(location, 0.12, 0.2, 1.0, 1.0);
-
+    va.unbind();
     float frame = 0;
     while (!glfwWindowShouldClose(window)) {
         // prepare frame
         glClear(GL_COLOR_BUFFER_BIT);
 
-        vao.bind();
-        ibo.bind();
+        va.bind();
+        ib.bind();
 
         // modifying the uniforms
         auto i = (int) frame % 144;
