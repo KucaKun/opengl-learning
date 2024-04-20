@@ -4,8 +4,9 @@ project(opengl-learning)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -Wall ")
 
-add_executable(main src/main.cpp)
 include_directories(src/include)
+
+add_executable(main src/main.cpp src/vertex_buffer.cpp src/index_buffer.cpp src/renderer.cpp)
 
 add_subdirectory(glfw)
 

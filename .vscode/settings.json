@@ -1,6 +1,6 @@
 {
     "cmake.sourceDirectory": "D:/rep/opengl-learning",
-    "C_Cpp.errorSquiggles": "enabled",
+    "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
         "*.html": "html",
         "iostream": "cpp",
@@ -51,17 +51,19 @@
         "typeinfo": "cpp",
         "sstream": "cpp",
         "strstream": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "span": "cpp",
+        "format": "cpp"
     },
     "files.watcherExclude": {
-        "**/.git/objects/**": true,
-        "**/.git/subtree-cache/**": true,
         "build/**": true,
+        "glew/**": true,
+        "glfw/**": true,
     },
     "search.exclude": {
-        "**/.git/objects/**": true,
-        "**/.git/subtree-cache/**": true,
         "build/**": true,
+        "glew/**": true,
+        "glfw/**": true,
     },
     "editor.formatOnSave": true
 }

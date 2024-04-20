@@ -3,7 +3,9 @@
 #include <iostream>
 
 #include "error_handling.hpp"
+#include "index_buffer.hpp"
 #include "shaders.hpp"
+#include "vertex_buffer.hpp"
 #define COUNT 3
 
 GLFWwindow* initialize_gl_context() {
@@ -57,23 +59,16 @@ int main(void) {
     glBindVertexArray(vao);
 
     // Prepare buffer
-    unsigned int buffer_id;
-    glGenBuffers(1, &buffer_id); // generate empty buffer
-    glBindBuffer(GL_ARRAY_BUFFER, buffer_id); // has to be bound to use
-    glBufferData(GL_ARRAY_BUFFER, 4 * 2 * sizeof(float), positions, GL_STATIC_DRAW); // fill buffer with data
+    VertexBuffer vb(positions, 4 * 2 * sizeof(float));
+
 
     // Prepare attributes
     glVertexAttribPointer(
         0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0); // describe how the data in the buffer is structured
     glEnableVertexAttribArray(0); // enable the structuring that was set
-    glBindBuffer(GL_ARRAY_BUFFER, 0); // unbinding the buffer
 
     // Prepare index buffer
-    unsigned int ibo; // index buffer object
-    glGenBuffers(1, &ibo); // generate empty buffer
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo); // has to be bound to use
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), indices, GL_STATIC_DRAW); // fill buffer with data
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); // unbinding ibo
+    IndexBuffer ibo(indices, 6);
 
     // load shaders
     ShaderSources sources = read_sources_from_file("basic.glsl");
@@ -89,7 +84,8 @@ int main(void) {
         // prepare frame
         glClear(GL_COLOR_BUFFER_BIT);
         glBindVertexArray(vao); // has to be bound to use
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo); // has to be bound to use
+
+        ibo.bind();
 
         // modifying the uniforms
         auto i = (int) frame % 144;
