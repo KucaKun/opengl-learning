@@ -23,6 +23,7 @@ add_executable(main
     src/shader.cpp
     src/uniform.cpp
     src/texture.cpp
+    src/window.cpp
     src/external/stb_image.cpp
     )
 

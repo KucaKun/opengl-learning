@@ -67,11 +67,15 @@
         "build/**": true,
         "glew/**": true,
         "glfw/**": true,
+        "imgui/**": true,
+        "glm/**": true,
     },
     "search.exclude": {
         "build/**": true,
         "glew/**": true,
         "glfw/**": true,
+        "imgui/**": true,
+        "glm/**": true,
     },
     "editor.formatOnSave": true
 }
