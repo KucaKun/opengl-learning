@@ -69,8 +69,12 @@ int main(void) {
     Shader shader("basic.glsl");
     shader.bind();
 
-    glm::mat4 proj = glm::ortho(0.f, 640.f, 0.f, 480.f, -1.f, 1.f);
-    shader.set_uniform<glm::mat4>("u_mvp", &proj[0][0]);
+    glm::mat4 proj  = glm::ortho(0.f, 640.f, 0.f, 480.f, -1.f, 1.f);
+    glm::mat4 view  = glm::translate(glm::mat4(1.0f), glm::vec3(-100, 0, 0));
+    glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 200, 0));
+    glm::mat4 mvp   = proj * view * model;
+
+    shader.set_uniform<glm::mat4>("u_mvp", &mvp[0][0]);
     Texture texture("witek.png");
     texture.bind(0);
     shader.set_uniform<int>("u_texture", 0);
