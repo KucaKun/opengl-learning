@@ -35,7 +35,7 @@ struct VertexBufferElement {
     unsigned int normalized;
 
     inline unsigned int get_size() {
-        return glsizeof(type);
+        return glsizeof(type) * count;
     }
 };
 
@@ -57,6 +57,6 @@ public:
 
     void push(unsigned int gl_type_enum, unsigned int count) {
         elements.push_back({gl_type_enum, count, false});
-        stride += glsizeof(gl_type_enum) * count;
+        stride += count * glsizeof(gl_type_enum);
     }
 };

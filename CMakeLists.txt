@@ -6,6 +6,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -Wall ")
 set(CMAKE_COLOR_DIAGNOSTICS)
 
 include_directories(src/include)
+include_directories(src/external/include)
 
 add_executable(main 
     src/main.cpp 
@@ -16,7 +17,20 @@ add_executable(main
     src/shader.cpp
     src/uniform.cpp
     src/renderer.cpp
+    src/texture.cpp
+    src/external/stb_image.cpp
     )
+
+add_custom_command(TARGET main POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/shaders"
+        $<TARGET_FILE_DIR:main>)
+
+        
+add_custom_command(TARGET main POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_CURRENT_SOURCE_DIR}/res"
+        $<TARGET_FILE_DIR:main>)
 
 add_subdirectory(glfw)
 
@@ -30,8 +44,3 @@ target_link_libraries(main glfw)
 target_link_libraries(main ${OPENGL_LIBRARIES})
 
 install(TARGETS main DESTINATION __)
-
-add_custom_command(TARGET main POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/shaders"
-        $<TARGET_FILE_DIR:main>)

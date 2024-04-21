@@ -6,6 +6,7 @@
 #include "index_buffer.hpp"
 #include "renderer.hpp"
 #include "shader.hpp"
+#include "texture.hpp"
 #include "vertex_array.hpp"
 #include "vertex_buffer.hpp"
 #include "vertex_buffer_layout.hpp"
@@ -17,8 +18,8 @@ GLFWwindow* initialize_gl_context() {
     if (!glfwInit()) {
         return nullptr;
     }
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     /* Create a windowed mode window and its OpenGL context */
@@ -43,26 +44,20 @@ int main(void) {
     GLFWwindow* window = initialize_gl_context();
     Renderer renderer;
 
-    float positions[] = {
-        // 0
-        -0.5f,
-        -0.5f,
-        // 1
-        0.5f,
-        -0.5f,
-        // 2
-        0.5f,
-        0.5f,
-        // 3
-        -0.5f,
-        0.5f,
+    float verticies[][4] = {
+        {-0.5f, -0.5f, 0.0f, 0.0f},
+        {0.5f, -0.5f, 1.0f, 0.0f},
+        {0.5f, 0.5f, 1.0f, 1.0f},
+        {-0.5f, 0.5f, 0.0f, 1.0f},
     };
     unsigned int indices[]{0, 1, 2, 2, 3, 0};
     VertexArray va;
-
-    VertexBuffer vb(positions, 4 * 2 * sizeof(float));
+    int floats_per_vertex = 4;
+    int verticies_count   = 4;
+    VertexBuffer vb(verticies, verticies_count * floats_per_vertex * sizeof(float));
 
     VertexBufferLayout layout;
+    layout.push(GL_FLOAT, 2);
     layout.push(GL_FLOAT, 2);
 
     va.add_buffer(vb, layout);
@@ -72,15 +67,12 @@ int main(void) {
     Shader shader("basic.glsl");
     shader.bind();
 
-    shader.set_uniform<float>("u_color", {0.1f, 0.2f, 0.3f, 0.4f});
-
+    Texture texture("witek.png");
+    texture.bind(0);
+    shader.set_uniform<int>("u_texture", {0});
     float frame = 0;
     while (!glfwWindowShouldClose(window)) {
         renderer.clear();
-
-        // modifying the uniforms
-        auto i = (int) frame % 144;
-        shader.set_uniform<float>("u_color", {1.0f / i, 1.0f / (i / 3.f), 1.0f / (i / 2.f), 1.0f});
 
         renderer.draw(va, ib, shader);
         // draw frame
