@@ -1,6 +1,9 @@
 #pragma once
 #include <GL/glew.h>
 #include <functional>
+#include <string>
+#include <typeinfo>
+#include <vector>
 struct ProtoUniform {
     std::string type;
     std::string name;
@@ -14,9 +17,7 @@ private:
     unsigned int program_id;
 
 public:
-    Uniform(ProtoUniform proto, unsigned int program_id) : type(proto.type), name(proto.name), program_id(program_id) {
-        location = glGetUniformLocation(program_id, name.c_str());
-    }
+    Uniform(ProtoUniform proto, unsigned int program_id);
 
     template <typename T>
     void set_value(std::vector<T> args) {
@@ -61,6 +62,7 @@ public:
         }
         functor();
     }
+
     operator unsigned int() const {
         return location;
     }

@@ -4,7 +4,8 @@
 
 #include "error_handling.hpp"
 #include "index_buffer.hpp"
-#include "shaders.hpp"
+#include "renderer.hpp"
+#include "shader.hpp"
 #include "vertex_array.hpp"
 #include "vertex_buffer.hpp"
 #include "vertex_buffer_layout.hpp"
@@ -40,7 +41,9 @@ GLFWwindow* initialize_gl_context() {
 
 int main(void) {
     GLFWwindow* window = initialize_gl_context();
-    float positions[]  = {
+    Renderer renderer;
+
+    float positions[] = {
         // 0
         -0.5f,
         -0.5f,
@@ -55,7 +58,6 @@ int main(void) {
         0.5f,
     };
     unsigned int indices[]{0, 1, 2, 2, 3, 0};
-
     VertexArray va;
 
     VertexBuffer vb(positions, 4 * 2 * sizeof(float));
@@ -74,18 +76,14 @@ int main(void) {
 
     float frame = 0;
     while (!glfwWindowShouldClose(window)) {
-        // prepare frame
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        va.bind();
-        ib.bind();
+        renderer.clear();
 
         // modifying the uniforms
         auto i = (int) frame % 144;
         shader.set_uniform<float>("u_color", {1.0f / i, 1.0f / (i / 3.f), 1.0f / (i / 2.f), 1.0f});
 
+        renderer.draw(va, ib, shader);
         // draw frame
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr); // draw index buffer
         glfwSwapBuffers(window);
         glfwPollEvents();
 

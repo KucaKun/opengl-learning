@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.4...3.28 FATAL_ERROR)
 project(opengl-learning)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -Wall ")
+set(CMAKE_COLOR_DIAGNOSTICS)
 
 include_directories(src/include)
 
@@ -11,6 +12,9 @@ add_executable(main
     src/vertex_buffer.cpp 
     src/index_buffer.cpp 
     src/vertex_array.cpp 
+    src/renderer.cpp
+    src/shader.cpp
+    src/uniform.cpp
     src/renderer.cpp
     )
 

@@ -1,4 +1,7 @@
+
 #include "vertex_array.hpp"
+
+#include <GL/glew.h>
 
 
 VertexArray::VertexArray() {
@@ -9,8 +12,8 @@ VertexArray::VertexArray() {
 VertexArray::~VertexArray() {}
 
 void VertexArray::add_buffer(const VertexBuffer& vb, const VertexBufferLayout& layout) {
-    auto i      = 0;
-    auto offset = 0;
+    auto i                    = 0;
+    unsigned long long offset = 0;
     for (auto& element : layout.get_elements()) {
         // describe how the data in the buffer is structured
         glVertexAttribPointer(

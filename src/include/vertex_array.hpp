@@ -1,6 +1,4 @@
 #pragma once
-#include <GL/glew.h>
-
 #include "vertex_buffer.hpp"
 #include "vertex_buffer_layout.hpp"
 
