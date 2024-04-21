@@ -5,9 +5,14 @@ project(opengl-learning)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -Wall ")
 set(CMAKE_COLOR_DIAGNOSTICS)
 
+find_package(OpenGL REQUIRED)
+
 include_directories(src/include)
 include_directories(glm)
 include_directories(src/external/include)
+include_directories(glew/include)
+include_directories(imgui)
+include_directories(glfw/include)
 
 add_executable(main 
     src/main.cpp 
@@ -17,7 +22,6 @@ add_executable(main
     src/renderer.cpp
     src/shader.cpp
     src/uniform.cpp
-    src/renderer.cpp
     src/texture.cpp
     src/external/stb_image.cpp
     )
@@ -33,15 +37,17 @@ add_custom_command(TARGET main POST_BUILD
         "${CMAKE_CURRENT_SOURCE_DIR}/res"
         $<TARGET_FILE_DIR:main>)
 
+link_directories(glfw)
 add_subdirectory(glfw)
 
-find_package(OpenGL REQUIRED)
+link_directories(imgui)
+add_subdirectory(imgui)
 
 add_compile_definitions(GLEW_STATIC)
-include_directories(glew/include)
-target_link_libraries(main ${CMAKE_CURRENT_SOURCE_DIR}/glew/lib/Release/x64/glew32s.lib)
 
+target_link_libraries(main ${CMAKE_CURRENT_SOURCE_DIR}/glew/lib/Release/x64/glew32s.lib)
 target_link_libraries(main glfw)
 target_link_libraries(main ${OPENGL_LIBRARIES})
+target_link_libraries(main imgui)
 
 install(TARGETS main DESTINATION __)
