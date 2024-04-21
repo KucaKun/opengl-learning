@@ -65,18 +65,13 @@ int main(void) {
 
     va.add_buffer(vb, layout);
 
-    // Prepare index buffer
     IndexBuffer ib(indices, 6);
 
-    // load shaders
-    ShaderSources sources = read_sources_from_file("basic.glsl");
-    unsigned int shader   = create_shader(sources.vertex_shader, sources.fragment_shader);
-    glUseProgram(shader);
+    Shader shader("basic.glsl");
+    shader.bind();
 
-    // prepare uniforms
-    int location = glGetUniformLocation(shader, "u_color");
-    glUniform4f(location, 0.12, 0.2, 1.0, 1.0);
-    va.unbind();
+    shader.set_uniform<float>("u_color", {0.1f, 0.2f, 0.3f, 0.4f});
+
     float frame = 0;
     while (!glfwWindowShouldClose(window)) {
         // prepare frame
@@ -87,8 +82,7 @@ int main(void) {
 
         // modifying the uniforms
         auto i = (int) frame % 144;
-        glUniform4f(location, 1.0 / i, 1.0 / (i / 3.), 1.0 / (i / 2.), 1.0);
-
+        shader.set_uniform<float>("u_color", {1.0f / i, 1.0f / (i / 3.f), 1.0f / (i / 2.f), 1.0f});
 
         // draw frame
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr); // draw index buffer
@@ -98,7 +92,7 @@ int main(void) {
         // finish
         frame++;
     }
-    glDeleteProgram(shader);
+    shader.unbind();
     glfwTerminate();
     return 0;
 }
