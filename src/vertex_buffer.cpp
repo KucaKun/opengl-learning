@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 
+using namespace kckn;
 VertexBuffer::VertexBuffer(void* data, unsigned int size) {
     glGenBuffers(1, &renderer_id); // generate empty buffer
     glBindBuffer(GL_ARRAY_BUFFER, renderer_id); // has to be bound to use

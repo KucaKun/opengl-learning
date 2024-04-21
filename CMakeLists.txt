@@ -6,6 +6,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -Wall ")
 set(CMAKE_COLOR_DIAGNOSTICS)
 
 include_directories(src/include)
+include_directories(glm)
 include_directories(src/external/include)
 
 add_executable(main 

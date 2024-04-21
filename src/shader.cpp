@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "utils.hpp"
+using namespace kckn;
 
 Shader::Shader(std::string filename) : filename(filename) {
     std::ifstream stream(filename);

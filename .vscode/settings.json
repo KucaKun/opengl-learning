@@ -57,7 +57,11 @@
         "charconv": "cpp",
         "ctime": "cpp",
         "variant": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "chrono": "cpp",
+        "cstring": "cpp",
+        "ratio": "cpp",
+        "iomanip": "cpp"
     },
     "files.watcherExclude": {
         "build/**": true,

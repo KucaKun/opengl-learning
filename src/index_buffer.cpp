@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 
+using namespace kckn;
 IndexBuffer::IndexBuffer(void* data, unsigned int count) : count(count) {
     glGenBuffers(1, &renderer_id); // generate empty buffer
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer_id); // has to be bound to use

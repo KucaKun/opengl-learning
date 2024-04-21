@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 
 
+using namespace kckn;
 VertexArray::VertexArray() {
     glGenVertexArrays(1, &renderer_id);
     glBindVertexArray(renderer_id);

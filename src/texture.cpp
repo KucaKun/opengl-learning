@@ -4,6 +4,7 @@
 #include "stb_image.h"
 #include <stdexcept>
 
+using namespace kckn;
 Texture::Texture(const std::string& path)
     : renderer_id(0), local_buffer(nullptr), width(0), height(0), bytes_per_pixel(0) {
     stbi_set_flip_vertically_on_load(1);

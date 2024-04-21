@@ -3,6 +3,8 @@
 #include <iostream>
 
 #include "error_handling.hpp"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 #include "index_buffer.hpp"
 #include "renderer.hpp"
 #include "shader.hpp"
@@ -10,6 +12,7 @@
 #include "vertex_array.hpp"
 #include "vertex_buffer.hpp"
 #include "vertex_buffer_layout.hpp"
+using namespace kckn;
 
 GLFWwindow* initialize_gl_context() {
     GLFWwindow* window;
@@ -39,7 +42,6 @@ GLFWwindow* initialize_gl_context() {
     std::cout << glGetString(GL_VERSION) << std::endl;
     return window;
 }
-
 int main(void) {
     GLFWwindow* window = initialize_gl_context();
     Renderer renderer;
@@ -63,10 +65,11 @@ int main(void) {
     va.add_buffer(vb, layout);
 
     IndexBuffer ib(indices, 6);
-
     Shader shader("basic.glsl");
     shader.bind();
 
+    glm::mat4 proj = glm::ortho(-2.f, 2.f, -1.5f, 1.5f, -1.f, 1.f);
+    shader.set_uniform<glm::mat4>("u_mvp", {proj});
     Texture texture("witek.png");
     texture.bind(0);
     shader.set_uniform<int>("u_texture", {0});

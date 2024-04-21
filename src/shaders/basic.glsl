@@ -4,10 +4,12 @@
 layout(location = 0) in vec4 i_position;
 layout(location = 1) in vec2 i_tex_coords;
 
+uniform mat4 u_mvp;
+
 out vec2 v_tex_coords;
 
 void main() {
-    gl_Position = i_position;
+    gl_Position = u_mvp * i_position;
     v_tex_coords = i_tex_coords;
 }
 
