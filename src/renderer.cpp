@@ -11,5 +11,5 @@ void Renderer::draw(const VertexArray& va, const IndexBuffer& ib, const Shader& 
     shader.bind();
     va.bind();
     ib.bind();
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr); // draw index buffer
+    glDrawElements(GL_TRIANGLES, ib.get_count(), GL_UNSIGNED_INT, nullptr); // draw index buffer
 }
