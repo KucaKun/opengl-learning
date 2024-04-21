@@ -45,12 +45,13 @@ GLFWwindow* initialize_gl_context() {
 int main(void) {
     GLFWwindow* window = initialize_gl_context();
     Renderer renderer;
-
+    float center         = 320.f;
+    float size           = 100.f;
     float verticies[][4] = {
-        {-0.5f, -0.5f, 0.0f, 0.0f},
-        {0.5f, -0.5f, 1.0f, 0.0f},
-        {0.5f, 0.5f, 1.0f, 1.0f},
-        {-0.5f, 0.5f, 0.0f, 1.0f},
+        {center - size, center - size, 0.0f, 0.0f},
+        {center + size, center - size, 1.0f, 0.0f},
+        {center + size, center + size, 1.0f, 1.0f},
+        {center - size, center + size, 0.0f, 1.0f},
     };
     unsigned int indices[]{0, 1, 2, 2, 3, 0};
     VertexArray va;
@@ -68,7 +69,7 @@ int main(void) {
     Shader shader("basic.glsl");
     shader.bind();
 
-    glm::mat4 proj = glm::ortho(-2.f, 2.f, -1.5f, 1.5f, -1.f, 1.f);
+    glm::mat4 proj = glm::ortho(0.f, 640.f, 0.f, 480.f, -1.f, 1.f);
     shader.set_uniform<glm::mat4>("u_mvp", &proj[0][0]);
     Texture texture("witek.png");
     texture.bind(0);
