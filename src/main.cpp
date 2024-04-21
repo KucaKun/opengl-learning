@@ -69,10 +69,10 @@ int main(void) {
     shader.bind();
 
     glm::mat4 proj = glm::ortho(-2.f, 2.f, -1.5f, 1.5f, -1.f, 1.f);
-    shader.set_uniform<glm::mat4>("u_mvp", {proj});
+    shader.set_uniform<glm::mat4>("u_mvp", &proj[0][0]);
     Texture texture("witek.png");
     texture.bind(0);
-    shader.set_uniform<int>("u_texture", {0});
+    shader.set_uniform<int>("u_texture", 0);
     float frame = 0;
     while (!glfwWindowShouldClose(window)) {
         renderer.clear();

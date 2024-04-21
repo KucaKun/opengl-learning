@@ -24,10 +24,10 @@ namespace kckn {
         void bind() const;
         void unbind() const;
 
-        template <typename T>
-        void set_uniform(std::string uniform_name, std::vector<T> args) {
+        template <typename T, typename... A>
+        void set_uniform(std::string uniform_name, A... args) {
             if (uniforms.contains(uniform_name)) {
-                uniforms.at(uniform_name).set_value<T>(args);
+                uniforms.at(uniform_name).set_value<T>(args...);
             } else {
                 throw std::runtime_error(
                     std::format("uniform {} does not exist in shader code {}", uniform_name, filename));
