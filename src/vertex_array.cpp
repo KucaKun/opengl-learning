@@ -13,6 +13,7 @@ VertexArray::VertexArray() {
 VertexArray::~VertexArray() {}
 
 void VertexArray::add_buffer(const VertexBuffer& vb, const VertexBufferLayout& layout) {
+    vb.bind();
     auto i                    = 0;
     unsigned long long offset = 0;
     for (auto& element : layout.get_elements()) {

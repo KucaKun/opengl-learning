@@ -24,6 +24,7 @@ add_executable(main
     src/uniform.cpp
     src/texture.cpp
     src/window.cpp
+    src/object.cpp
     src/external/stb_image.cpp
     )
 

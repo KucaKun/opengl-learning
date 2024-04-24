@@ -197,7 +197,7 @@ NamespaceIndentation: All
 # ObjCBreakBeforeNestedBlockParam: true
 # ObjCSpaceAfterProperty: false
 # ObjCSpaceBeforeProtocolList: true
-# PackConstructorInitializers: BinPack
+PackConstructorInitializers: CurrentLine 
 # PenaltyBreakAssignment: 2
 # PenaltyBreakBeforeFirstCallParameter: 19
 # PenaltyBreakComment: 300
