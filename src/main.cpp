@@ -14,54 +14,32 @@
 #include "window.hpp"
 using namespace kckn;
 
-
 int main(void) {
     Window window(1080, 720);
     Renderer renderer;
-    float center = 320.f;
-    float size   = 100.f;
-    // float verticies[][4] = {
-    //     {center - size, center - size, 0.0f, 0.0f},
-    //     {center + size, center - size, 1.0f, 0.0f},
-    //     {center + size, center + size, 1.0f, 1.0f},
-    //     {center - size, center + size, 0.0f, 1.0f},
-    // };
-    // int layout[][2] = {
-    //     {GL_FLOAT, 2},
-    //     {GL_FLOAT, 2},
-    // };
 
-    // unsigned int indices[]{0, 1, 2, 2, 3, 0};
+    Triangle triangle(500, 300, 100, 100);
+    Triangle triangle2(300, 500, 80, 80);
+    Point aaa(200, 200);
 
+    glm::mat4 proj = glm::ortho(0.f, 1080.f, 0.f, 720.f, -1.f, 1.f);
 
-    Object object(
-        {
-            {center - size, center - size, 0.0f, 0.0f},
-            {center + size, center - size, 1.0f, 0.0f},
-            {center + size, center + size, 1.0f, 1.0f},
-            {center - size, center + size, 0.0f, 1.0f},
-        },
-        {
-            {GL_FLOAT, 2},
-            {GL_FLOAT, 2},
-        },
-        {0, 1, 2, 2, 3, 0},
-        "basic.glsl",
-        GL_TRIANGLES);
+    aaa.set_mvp(proj);
+    aaa.set_color(100, 200, 255, 255);
 
-    glm::mat4 proj  = glm::ortho(0.f, 640.f, 0.f, 480.f, -1.f, 1.f);
-    glm::mat4 view  = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-    glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
-    glm::mat4 mvp   = proj * view * model;
+    triangle.set_mvp(proj);
+    triangle.set_color(0, 1, 222, 234);
 
-    object.set_mvp(mvp);
-    object.set_texture("witek.png", 0);
+    triangle2.set_mvp(proj);
+    triangle2.set_color(100, 1, 0, 234);
 
     while (!window.should_close()) {
         window.prepare_frame();
         renderer.clear();
-        renderer.draw(object.va, object.ib, object.shader);
-        // window.draw_imgui();
+        renderer.draw(triangle);
+        renderer.draw(triangle2);
+        renderer.draw(aaa);
+        window.draw_imgui();
         window.finalize_frame();
     }
     window.unbind();
