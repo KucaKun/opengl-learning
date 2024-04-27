@@ -3,14 +3,23 @@
 #include <GL/glew.h>
 
 using namespace kckn;
-IndexBuffer::IndexBuffer(void* data, unsigned int count) : count(count) {
-    glGenBuffers(1, &renderer_id); // generate empty buffer
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer_id); // has to be bound to use
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), data, GL_STATIC_DRAW); // fill buffer with data
+
+
+kckn::IndexBuffer::IndexBuffer() : count(0) {
+    glGenBuffers(1, &renderer_id);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer_id);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 0xffff, nullptr, GL_DYNAMIC_DRAW);
 }
 
 IndexBuffer::~IndexBuffer() {
     glDeleteBuffers(1, &renderer_id);
+}
+
+void IndexBuffer::set_data(void* data, unsigned int element_offset, unsigned int element_count) {
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer_id);
+    glBufferSubData(
+        GL_ELEMENT_ARRAY_BUFFER, element_offset * sizeof(unsigned int), element_count * sizeof(unsigned int), data);
+    count += element_count;
 }
 
 void IndexBuffer::bind() const {

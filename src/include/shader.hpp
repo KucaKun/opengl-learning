@@ -16,11 +16,11 @@ namespace kckn {
         unsigned int renderer_id;
         ShaderSources sources;
         std::string filename;
+        unsigned int compile_shader(unsigned int type, const std::string& source);
 
     public:
         Shader(std::string filename);
 
-        unsigned int compile_shader(unsigned int type, const std::string& source);
         void bind() const;
         void unbind() const;
 

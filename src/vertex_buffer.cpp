@@ -3,14 +3,27 @@
 #include <GL/glew.h>
 
 using namespace kckn;
-VertexBuffer::VertexBuffer(void* data, unsigned int size) {
-    glGenBuffers(1, &renderer_id); // generate empty buffer
-    glBindBuffer(GL_ARRAY_BUFFER, renderer_id); // has to be bound to use
-    glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW); // fill buffer with data
-}
 
+VertexBuffer::VertexBuffer() {
+    glGenBuffers(1, &renderer_id); // generate empty buffer
+    glBindBuffer(GL_ARRAY_BUFFER, renderer_id);
+    glBufferData(GL_ARRAY_BUFFER, 0xffff, nullptr, GL_DYNAMIC_DRAW);
+}
 VertexBuffer::~VertexBuffer() {
     glDeleteBuffers(1, &renderer_id);
+}
+
+void VertexBuffer::set_data(void* data, unsigned int offset, unsigned int size) {
+    glBindBuffer(GL_ARRAY_BUFFER, renderer_id);
+    glBufferSubData(GL_ARRAY_BUFFER, offset, size, data);
+}
+
+Vertex* VertexBuffer::get_batch_buffer() {
+    return batch_buffer;
+}
+
+int VertexBuffer::get_batch_offset(int obj_id) const {
+    return obj_id * sizeof(Vertex);
 }
 
 void VertexBuffer::bind() const {
