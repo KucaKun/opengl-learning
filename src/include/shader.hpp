@@ -12,6 +12,7 @@ namespace kckn {
     };
 
     class Shader {
+        std::vector<ProtoUniform> proto_uniforms;
         std::map<std::string, Uniform> uniforms;
         unsigned int renderer_id;
         ShaderSources sources;
@@ -20,7 +21,11 @@ namespace kckn {
 
     public:
         Shader(std::string filename);
-
+        Shader(ShaderSources sources);
+        void parse_from_file(std::string& filename);
+        void parse_from_string(ShaderSources& sources);
+        void parse_from_stream(std::stringstream& sources_stream);
+        void create_program();
         void bind() const;
         void unbind() const;
 

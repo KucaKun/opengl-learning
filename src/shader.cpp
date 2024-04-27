@@ -10,15 +10,36 @@
 
 #include "utils.hpp"
 using namespace kckn;
+Shader::Shader(ShaderSources sources) {
+    parse_from_string(sources);
+    create_program();
+}
+Shader::Shader(std::string _filename) : filename(_filename) {
+    parse_from_file(_filename);
+    create_program();
+}
 
-Shader::Shader(std::string filename) : filename(filename) {
+void Shader::parse_from_file(std::string& filename) {
     std::ifstream stream(filename);
-    std::string line;
-    std::stringstream ss[2];
+    std::stringstream sources_stream;
+    sources_stream << stream.rdbuf();
+    parse_from_stream(sources_stream);
+}
+
+void Shader::parse_from_string(ShaderSources& sources) {
+    std::stringstream sources_stream;
+    sources_stream << "#shader vertex\n";
+    sources_stream << sources.vertex_shader;
+    sources_stream << "#shader fragment\n";
+    sources_stream << sources.fragment_shader;
+    parse_from_stream(sources_stream);
+}
+
+void Shader::parse_from_stream(std::stringstream& stream) {
     enum class ShaderType { NONE = -1, VERTEX = 0, FRAGMENT = 1 };
     ShaderType mode = ShaderType::NONE;
-    std::vector<ProtoUniform> _uniforms;
 
+    std::stringstream source_code[2];
     for (std::string line; std::getline(stream, line);) {
         // parsing which type of shader it is
         if (line.find("#shader") != std::string::npos) {
@@ -29,23 +50,27 @@ Shader::Shader(std::string filename) : filename(filename) {
             }
             continue;
         }
-
+        if (mode == ShaderType::NONE) {
+            continue;
+        }
         // parsing uniforms
         if (line.find("uniform") != std::string::npos) {
-            std::vector<std::string> split_line = split_string(line, " ");
+            std::string stripped_line           = strip_string(line);
+            std::vector<std::string> split_line = split_string(stripped_line, " ");
             if (split_line.size() == 3) {
                 ProtoUniform u{split_line[1], split_line[2].replace(split_line[2].end() - 1, split_line[2].end(), "")};
-                _uniforms.push_back(u);
+                proto_uniforms.push_back(u);
             }
         }
 
         // parsing source code
-        ss[(int) mode] << line << std::endl;
+        source_code[(int) mode] << line << std::endl;
     }
+    sources.vertex_shader   = source_code[(int) ShaderType::VERTEX].str();
+    sources.fragment_shader = source_code[(int) ShaderType::FRAGMENT].str();
+}
 
-    sources.vertex_shader   = ss[(int) ShaderType::VERTEX].str();
-    sources.fragment_shader = ss[(int) ShaderType::FRAGMENT].str();
-
+void Shader::create_program() {
     renderer_id = glCreateProgram();
 
     // create intermediate shaders
@@ -73,11 +98,10 @@ Shader::Shader(std::string filename) : filename(filename) {
     glDeleteShader(fs);
 
     // locate and remember uniforms
-    for (auto& proto_uniform : _uniforms) {
+    for (auto& proto_uniform : proto_uniforms) {
         uniforms.emplace(proto_uniform.name, Uniform(proto_uniform, renderer_id));
     }
 }
-
 unsigned int Shader::compile_shader(unsigned int type, const std::string& source) {
     unsigned int id = glCreateShader(type);
     const char* src = source.c_str();
