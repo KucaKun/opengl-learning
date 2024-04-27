@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.4...3.28 FATAL_ERROR)
 
 project(opengl-learning)
 
+enable_testing()
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -Wall ")
 set(CMAKE_COLOR_DIAGNOSTICS)
 
@@ -13,31 +15,37 @@ include_directories(src/external/include)
 include_directories(glew/include)
 include_directories(imgui)
 include_directories(glfw/include)
-
-add_executable(main 
-    src/main.cpp 
-    src/vertex_buffer.cpp 
-    src/index_buffer.cpp 
-    src/vertex_array.cpp 
+set(SOURCES
+    src/vertex_buffer.cpp
+    src/index_buffer.cpp
+    src/vertex_array.cpp
     src/renderer.cpp
     src/shader.cpp
     src/uniform.cpp
     src/texture.cpp
     src/window.cpp
     src/object.cpp
-    src/external/stb_image.cpp
-    )
+    src/external/stb_image.cpp)
+
+add_executable(main
+    src/main.cpp ${SOURCES}
+)
+
+add_subdirectory(googletest)
+add_executable(tests
+    src/tests/vertex_buffer_layout_test.cpp
+    ${SOURCES}
+)
+add_test(NAME tests COMMAND tests)
+add_custom_command(TARGET main POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/shaders"
+    $<TARGET_FILE_DIR:main>)
 
 add_custom_command(TARGET main POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/shaders"
-        $<TARGET_FILE_DIR:main>)
-
-        
-add_custom_command(TARGET main POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${CMAKE_CURRENT_SOURCE_DIR}/res"
-        $<TARGET_FILE_DIR:main>)
+    "${CMAKE_CURRENT_SOURCE_DIR}/res"
+    $<TARGET_FILE_DIR:main>)
 
 link_directories(glfw)
 add_subdirectory(glfw)
@@ -51,5 +59,6 @@ target_link_libraries(main ${CMAKE_CURRENT_SOURCE_DIR}/glew/lib/Release/x64/glew
 target_link_libraries(main glfw)
 target_link_libraries(main ${OPENGL_LIBRARIES})
 target_link_libraries(main imgui)
+target_link_libraries(tests gtest gtest_main ${CMAKE_CURRENT_SOURCE_DIR}/glew/lib/Release/x64/glew32s.lib glfw ${OPENGL_LIBRARIES} imgui)
 
 install(TARGETS main DESTINATION __)
