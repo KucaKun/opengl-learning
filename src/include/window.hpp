@@ -6,6 +6,8 @@
 #include <backends/imgui_impl_opengl3.h>
 #include <imgui.h>
 #include <memory>
+
+#include "scene.hpp"
 namespace kckn {
     class Window {
         GLFWwindow* window;
@@ -21,7 +23,7 @@ namespace kckn {
         bool should_close();
         void clear();
         void draw_imgui();
-        void prepare_frame();
+        void prepare_frame(std::shared_ptr<Scene>& scene);
         void finalize_frame();
         void unbind();
     };

@@ -1,19 +1,18 @@
 
 #include "examples/examples.hpp"
-#include "scene.hpp"
 #include "window.hpp"
 using namespace kckn;
 int main(void) {
-    std::shared_ptr<Window> window    = std::make_shared<Window>(1080, 720);
-    std::shared_ptr<PointScene> scene = std::make_shared<PointScene>(window);
+    std::shared_ptr<Window> window       = std::make_shared<Window>(1080, 720);
+    std::shared_ptr<Scene> current_scene = std::make_shared<PointScene>();
     while (!window->should_close()) {
-        window->prepare_frame();
+        window->prepare_frame(current_scene);
         window->clear();
-
-        scene->on_clean();
-        scene->on_render();
-        scene->on_imgui();
-
+        if (current_scene) {
+            current_scene->on_clean();
+            current_scene->on_render();
+            current_scene->on_imgui();
+        }
         window->draw_imgui();
         window->finalize_frame();
     }

@@ -2,7 +2,7 @@
 
 using namespace kckn;
 
-PointScene::PointScene(std::shared_ptr<Window> _window) : Scene(_window), point(100, 100) {}
+PointScene::PointScene() : Scene(), point(100, 100) {}
 
 void PointScene::on_clean() {}
 

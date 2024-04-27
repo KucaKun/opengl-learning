@@ -6,7 +6,7 @@ namespace kckn {
         Point point;
 
     public:
-        PointScene(std::shared_ptr<Window> _window);
+        PointScene();
         void on_clean() override;
         void on_render() override;
         void on_imgui() override;

@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "error_handling.hpp"
+#include "examples/examples.hpp"
 using namespace kckn;
 
 Window::Window(int width, int height) : width(640), height(480), frame_ctr(0), show_debug_window(true) {
@@ -56,7 +57,7 @@ void Window::clear() {
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Window::prepare_frame() {
+void Window::prepare_frame(std::shared_ptr<Scene>& scene) {
     glfwPollEvents();
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
@@ -66,6 +67,23 @@ void Window::prepare_frame() {
     ImGui::Text("counter = %d", frame_ctr);
     ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io->Framerate, io->Framerate);
     ImGui::End();
+
+    if (scene) {
+        ImGui::Begin("Scene chooser");
+        if (ImGui::Button("End scene")) {
+            scene.reset();
+        }
+        ImGui::End();
+    } else {
+        ImGui::Begin("Scene chooser");
+        if (ImGui::Button("Point Scene")) {
+            scene = std::make_shared<PointScene>();
+        }
+        if (ImGui::Button("Blank Scene")) {
+            scene = std::make_shared<Scene>();
+        }
+        ImGui::End();
+    }
 
     ImGui::Render();
     glViewport(0, 0, width, height);
