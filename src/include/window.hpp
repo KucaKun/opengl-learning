@@ -11,7 +11,6 @@
 namespace kckn {
     class Window {
         GLFWwindow* window;
-        std::shared_ptr<ImGuiIO> io;
         int width, height;
         int frame_ctr;
         bool show_debug_window;

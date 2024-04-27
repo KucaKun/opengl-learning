@@ -4,7 +4,6 @@ glfw is built from source
 imgui is built from source
 
 TODO:
- - fix imgui framerate counter
  - show cpu and gpu time
  - million particles scene
  - 2d lighting scene 

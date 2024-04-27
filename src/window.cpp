@@ -35,8 +35,8 @@ Window::Window(int width, int height) : width(640), height(480), frame_ctr(0), s
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    io = std::make_shared<ImGuiIO>(std::move(ImGui::GetIO()));
-    io->ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
+    ImGuiIO& io = ImGui::GetIO();
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
 
     ImGui::StyleColorsDark();
 
@@ -63,9 +63,10 @@ void Window::prepare_frame(std::shared_ptr<Scene>& scene) {
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
+    ImGuiIO& io = ImGui::GetIO();
     ImGui::Begin("Hello, world!");
     ImGui::Text("counter = %d", frame_ctr);
-    ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io->Framerate, io->Framerate);
+    ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
     ImGui::End();
 
     if (scene) {
