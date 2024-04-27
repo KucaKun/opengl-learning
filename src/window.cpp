@@ -4,13 +4,14 @@
 
 #include "error_handling.hpp"
 using namespace kckn;
+
 Window::Window(int width, int height) : width(640), height(480), frame_ctr(0), show_debug_window(true) {
 
     /* Initialize the library */
     if (!glfwInit()) {
         std::terminate();
     }
-    const char* glsl_version = "#version 330";
+    glsl_version = "#version 330";
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -33,44 +34,52 @@ Window::Window(int width, int height) : width(640), height(480), frame_ctr(0), s
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO();
-    (void) io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; // Enable Gamepad Controls
+    io = std::make_shared<ImGuiIO>(std::move(ImGui::GetIO()));
+    io->ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
 
     ImGui::StyleColorsDark();
 
-    // Setup Platform/Renderer backends
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
 }
+
+Window::~Window() {
+    unbind();
+}
+
+
 bool Window::should_close() {
     return glfwWindowShouldClose(window);
 }
+
+void Window::clear() {
+    glClear(GL_COLOR_BUFFER_BIT);
+}
+
 void Window::prepare_frame() {
     glfwPollEvents();
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
-    ImGui::Begin("Another Window", &show_debug_window);
-    ImGui::Text("Hello from another window!");
-    if (ImGui::Button("Close Me")) {
-        show_debug_window = false;
-    }
-    ImGui::End();
-    ImGui::Render();
 
-    int display_w, display_h;
-    glfwGetFramebufferSize(window, &display_w, &display_h);
-    glViewport(0, 0, display_w, display_h);
+    ImGui::Begin("Hello, world!");
+    ImGui::Text("counter = %d", frame_ctr);
+    ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io->Framerate, io->Framerate);
+    ImGui::End();
+
+    ImGui::Render();
+    glViewport(0, 0, width, height);
 }
+
 void Window::draw_imgui() {
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
 void Window::finalize_frame() {
     glfwSwapBuffers(window);
+    frame_ctr++;
 }
+
 void Window::unbind() {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();

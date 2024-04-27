@@ -27,6 +27,7 @@ set(SOURCES
     src/texture.cpp
     src/window.cpp
     src/object.cpp
+    src/examples/point_scene.cpp
     src/external/stb_image.cpp)
 
 add_executable(main

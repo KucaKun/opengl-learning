@@ -5,16 +5,21 @@
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
 #include <imgui.h>
+#include <memory>
 namespace kckn {
     class Window {
         GLFWwindow* window;
+        std::shared_ptr<ImGuiIO> io;
         int width, height;
-        unsigned long long frame_ctr;
+        int frame_ctr;
         bool show_debug_window;
+        const char* glsl_version;
 
     public:
         Window(int width, int height);
+        ~Window();
         bool should_close();
+        void clear();
         void draw_imgui();
         void prepare_frame();
         void finalize_frame();
