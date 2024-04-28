@@ -7,7 +7,7 @@ using namespace kckn;
 VertexBuffer::VertexBuffer() {
     glGenBuffers(1, &renderer_id); // generate empty buffer
     glBindBuffer(GL_ARRAY_BUFFER, renderer_id);
-    glBufferData(GL_ARRAY_BUFFER, 0xffff, nullptr, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, 0xffffffff, nullptr, GL_DYNAMIC_DRAW);
 }
 VertexBuffer::~VertexBuffer() {
     glDeleteBuffers(1, &renderer_id);

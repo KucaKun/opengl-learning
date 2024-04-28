@@ -6,7 +6,7 @@ namespace kckn {
     };
     class VertexBuffer {
         unsigned int renderer_id;
-        Vertex batch_buffer[0xffff / sizeof(Vertex)];
+        Vertex batch_buffer[0xffffffff / sizeof(Vertex)];
 
     public:
         VertexBuffer();

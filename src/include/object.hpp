@@ -12,12 +12,13 @@
 namespace kckn {
     struct Position {
         float x, y;
-    }; struct Color {
+    };
+    struct Color {
         float r, g, b, a;
-    }; class Object {
+    };
+    class Object {
     protected:
         unsigned int renderer_id;
-        std::unique_ptr<VertexArray> va;
         int draw_mode;
         Position position;
         Color color;
@@ -41,27 +42,27 @@ namespace kckn {
         static std::unique_ptr<IndexBuffer> ib;
         static std::unique_ptr<VertexBufferLayout> layout;
         static std::unique_ptr<Shader> shader;
+        static std::unique_ptr<VertexArray> va;
         Vertex vertex;
         unsigned int vertex_index;
 
     public:
-        Point(float x, float y) : Object(), vertex(x, y) {
+        Point(float x, float y) : Object() {
             // singleton initialization
             if (!vb) {
                 vb     = std::make_unique<VertexBuffer>();
                 ib     = std::make_unique<IndexBuffer>();
                 shader = std::make_unique<Shader>("color.glsl");
                 layout = std::make_unique<VertexBufferLayout>();
+                va     = std::make_unique<VertexArray>();
                 layout->push(GL_FLOAT, 2);
                 layout->push(GL_FLOAT, 4);
+                va->add_buffer(*vb, *layout);
             }
 
             renderer_id  = obj_ctr;
             vertex_index = 0 + renderer_id;
             obj_ctr += 1;
-
-            va = std::make_unique<VertexArray>();
-            va->add_buffer(*vb, *layout);
 
             draw_mode = GL_POINTS;
 

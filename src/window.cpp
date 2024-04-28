@@ -6,7 +6,7 @@
 #include "examples/examples.hpp"
 using namespace kckn;
 
-Window::Window(int width, int height) : width(640), height(480), frame_ctr(0), show_debug_window(true) {
+Window::Window(int _width, int _height) : width(_width), height(_height), frame_ctr(0), show_debug_window(true) {
 
     /* Initialize the library */
     if (!glfwInit()) {
@@ -82,6 +82,9 @@ void Window::prepare_frame(std::shared_ptr<Scene>& scene) {
         }
         if (ImGui::Button("Blank Scene")) {
             scene = std::make_shared<Scene>();
+        }
+        if (ImGui::Button("Milion Points Scene")) {
+            scene = std::make_shared<MilionPointsScene>();
         }
         ImGui::End();
     }

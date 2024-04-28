@@ -5,7 +5,7 @@ project(opengl-learning)
 include(testing.cmake)
 enable_testing()
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -Wall ")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -Wall")
 set(CMAKE_COLOR_DIAGNOSTICS)
 
 find_package(OpenGL REQUIRED)
@@ -28,6 +28,7 @@ set(SOURCES
     src/window.cpp
     src/object.cpp
     src/examples/point_scene.cpp
+    src/examples/milion_points_scene.cpp
     src/external/stb_image.cpp)
 
 add_executable(main

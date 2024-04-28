@@ -3,8 +3,8 @@
 #include "window.hpp"
 using namespace kckn;
 int main(void) {
-    std::shared_ptr<Window> window       = std::make_shared<Window>(1080, 720);
-    std::shared_ptr<Scene> current_scene = std::make_shared<PointScene>();
+    std::shared_ptr<Window> window       = std::make_shared<Window>(1920, 1080);
+    std::shared_ptr<Scene> current_scene = std::make_shared<MilionPointsScene>();
     while (!window->should_close()) {
         window->prepare_frame(current_scene);
         window->clear();

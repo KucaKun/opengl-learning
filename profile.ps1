@@ -1,5 +1,5 @@
 $profilerPath = "D:\Very sleepy\sleepy.exe"
 Set-Location -Path "build"
 $targetPath = ".\main.exe"
-Start-Process -FilePath $profilerPath -ArgumentList "/r $targetPath /t 5 /mt"
+Start-Process -FilePath $profilerPath -ArgumentList "/r $targetPath /t 5 /mt --mingw"
 Set-Location -Path ".."
