@@ -2,13 +2,15 @@
 
 #include <GL/glew.h>
 
+#include "global_data.hpp"
+
 using namespace kckn;
 
 
 kckn::IndexBuffer::IndexBuffer() : count(0) {
     glGenBuffers(1, &renderer_id);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer_id);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 0xffff, nullptr, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, global_data.max_index_buffer_size, nullptr, GL_DYNAMIC_DRAW);
 }
 
 IndexBuffer::~IndexBuffer() {

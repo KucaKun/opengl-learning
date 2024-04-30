@@ -2,12 +2,14 @@
 
 #include <GL/glew.h>
 
+#include "global_data.hpp"
+
 using namespace kckn;
 
 VertexBuffer::VertexBuffer() {
     glGenBuffers(1, &renderer_id); // generate empty buffer
     glBindBuffer(GL_ARRAY_BUFFER, renderer_id);
-    glBufferData(GL_ARRAY_BUFFER, 0xffff, nullptr, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, global_data.max_vertex_buffer_size, nullptr, GL_DYNAMIC_DRAW);
 }
 
 VertexBuffer::~VertexBuffer() {

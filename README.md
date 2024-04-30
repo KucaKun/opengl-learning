@@ -6,6 +6,7 @@ imgui is built from source
 
 
 TODO:
+ - set data for all objects in one call 
  - global buffer registration to be aware of all buffers and their sizes
  - handle removing stuff from master buffer
  - make pixel color one byte per channel
