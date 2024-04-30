@@ -101,5 +101,10 @@ namespace kckn {
         }
 
         std::cout << std::format("id: {} type:{} sev:{} from:{}\n {}\n\n", id, _type, _severity, _source, msg);
+        // throw if severity is high
+        if (severity == GL_DEBUG_SEVERITY_HIGH) {
+            throw std::runtime_error(
+                std::format("id: {} type:{} sev:{} from:{}\n {}\n\n", id, _type, _severity, _source, msg));
+        }
     }
 } // namespace kckn

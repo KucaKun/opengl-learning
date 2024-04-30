@@ -12,14 +12,14 @@ VertexArray::VertexArray() {
 
 VertexArray::~VertexArray() {}
 
-void VertexArray::add_buffer(const VertexBuffer& vb, const VertexBufferLayout& layout) {
-    vb.bind();
+void VertexArray::add_buffer(const s_ptr<VertexBuffer>& vb, const s_ptr<VertexBufferLayout>& layout) {
+    vb->bind();
     auto i                    = 0;
     unsigned long long offset = 0;
-    for (auto& element : layout.get_elements()) {
+    for (auto& element : layout->get_elements()) {
         // describe how the data in the buffer is structured
         glVertexAttribPointer(
-            i, element.count, element.type, element.normalized, layout.get_stride(), (const void*) offset);
+            i, element.count, element.type, element.normalized, layout->get_stride(), (const void*) offset);
 
         // enable the structuring that was set
         glEnableVertexAttribArray(i);

@@ -1,4 +1,5 @@
 #pragma once
+#include "utils.hpp"
 #include "vertex_buffer.hpp"
 #include "vertex_buffer_layout.hpp"
 namespace kckn {
@@ -8,7 +9,7 @@ namespace kckn {
     public:
         VertexArray();
         ~VertexArray();
-        void add_buffer(const VertexBuffer& vb, const VertexBufferLayout& vbl);
+        void add_buffer(const s_ptr<VertexBuffer>& vb, const s_ptr<VertexBufferLayout>& layout);
         void bind() const;
         void unbind() const;
     };

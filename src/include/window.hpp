@@ -22,7 +22,8 @@ namespace kckn {
         bool should_close();
         void clear();
         void draw_imgui();
-        void prepare_frame(std::shared_ptr<Scene>& scene);
+        void prepare_frame();
+        void prepare_imgui(std::shared_ptr<Scene>& scene);
         void finalize_frame();
         void unbind();
     };

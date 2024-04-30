@@ -1,6 +1,10 @@
 #pragma once
+#include <memory>
 #include <vector>
 namespace kckn {
+    template <typename T>
+    using s_ptr = std::shared_ptr<T>;
+
     inline std::string strip_string(std::string text, char c = ' ') {
         int leading_spaces  = 0;
         int trailing_spaces = 0;

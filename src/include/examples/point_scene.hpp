@@ -3,8 +3,6 @@
 #include "scene.hpp"
 namespace kckn {
     class PointScene : public Scene {
-        Point point;
-
     public:
         PointScene();
         void on_clean() override;

@@ -16,6 +16,7 @@ Window::Window(int _width, int _height) : width(_width), height(_height), frame_
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 
     /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(width, height, "Hello World", NULL, NULL);
@@ -30,6 +31,7 @@ Window::Window(int _width, int _height) : width(_width), height(_height), frame_
 
     glfwSwapInterval(1);
     glEnable(GL_DEBUG_OUTPUT);
+    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
     glDebugMessageCallback(error, nullptr);
     std::cout << glGetString(GL_VERSION) << std::endl;
 
@@ -42,6 +44,7 @@ Window::Window(int _width, int _height) : width(_width), height(_height), frame_
 
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
+    glViewport(0, 0, width, height);
 }
 
 Window::~Window() {
@@ -57,8 +60,11 @@ void Window::clear() {
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Window::prepare_frame(std::shared_ptr<Scene>& scene) {
+void Window::prepare_frame() {
     glfwPollEvents();
+}
+
+void Window::prepare_imgui(std::shared_ptr<Scene>& scene) {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
@@ -90,7 +96,6 @@ void Window::prepare_frame(std::shared_ptr<Scene>& scene) {
     }
 
     ImGui::Render();
-    glViewport(0, 0, width, height);
 }
 
 void Window::draw_imgui() {

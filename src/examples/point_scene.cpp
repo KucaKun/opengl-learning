@@ -2,13 +2,14 @@
 
 using namespace kckn;
 
-PointScene::PointScene() : Scene(), point(100, 100) {}
+PointScene::PointScene() : Scene() {
+    renderer.create<Point>(100.f, 100.f);
+}
 
 void PointScene::on_clean() {}
 
 void PointScene::on_render() {
-    point.move(0.1, 0.1);
-    renderer.draw(point);
+    renderer.draw_all();
 }
 
 void PointScene::on_imgui() {}

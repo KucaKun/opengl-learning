@@ -10,14 +10,17 @@
 
 #include "utils.hpp"
 using namespace kckn;
+
 Shader::Shader(ShaderSources sources) {
     parse_from_string(sources);
     create_program();
 }
+
 Shader::Shader(std::string _filename) : filename(_filename) {
     parse_from_file(_filename);
     create_program();
 }
+
 
 void Shader::parse_from_file(std::string& filename) {
     std::ifstream stream(filename);

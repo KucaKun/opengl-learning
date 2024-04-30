@@ -28,6 +28,8 @@ set(SOURCES
     src/window.cpp
     src/object.cpp
     src/examples/point_scene.cpp
+    src/examples/raw_scene.cpp
+
     src/examples/milion_points_scene.cpp
     src/external/stb_image.cpp)
 
