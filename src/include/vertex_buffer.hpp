@@ -1,4 +1,5 @@
 #pragma once
+#include "utils.hpp"
 namespace kckn {
 
     struct Position {
@@ -17,6 +18,7 @@ namespace kckn {
 
     class VertexBuffer {
         unsigned int renderer_id;
+        s_ptr<unsigned char[]> batch_buffer;
 
     public:
         VertexBuffer();
@@ -25,6 +27,7 @@ namespace kckn {
         void bind() const;
         void unbind() const;
         int get_batch_offset(int obj_id) const;
+        void upload_whole_batch_buffer();
         operator unsigned int() const {
             return renderer_id;
         }

@@ -2,6 +2,7 @@
 #include <map>
 #include <memory>
 
+#include "global_data.hpp"
 #include "global_register.hpp"
 #include "index_buffer.hpp"
 #include "object.hpp"

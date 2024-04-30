@@ -16,7 +16,8 @@ namespace kckn {
 
     public:
         size_t renderer_id;
-        bool has_changed = true;
+        bool has_changed      = true;
+        bool has_mesh_changed = true;
 
         virtual Vertex* get_vertex_data()                                                       = 0;
         virtual unsigned int* get_index_data()                                                  = 0;
@@ -32,8 +33,9 @@ namespace kckn {
         unsigned int index;
 
     public:
-        Point(float x, float y) : Object(), vertex{x, y, 0.2f, 0.3f, 0.6f, 1.0f}, index(0) {
+        Point(float x, float y) : Object(), vertex{x, y, 0.2f, 0.3f, 0.6f, 1.0f} {
             renderer_id = obj_ctr++;
+            index       = renderer_id;
         }
 
         static int get_draw_mode() {

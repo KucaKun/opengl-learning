@@ -1,14 +1,16 @@
 #pragma once
+#include "utils.hpp"
 namespace kckn {
     class IndexBuffer {
         unsigned int renderer_id;
         unsigned int count;
-        unsigned int batch_buffer[0xffff / sizeof(unsigned int)];
+        s_ptr<unsigned int[]> batch_buffer;
 
     public:
         IndexBuffer();
         ~IndexBuffer();
-        void set_data(void* data, unsigned int offset, unsigned int _count);
+        void set_data(unsigned int* data, unsigned int offset, unsigned int _count);
+        void upload_whole_batch_buffer();
         void bind() const;
         void unbind() const;
         inline unsigned int get_count() const {

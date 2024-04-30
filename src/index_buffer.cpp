@@ -1,13 +1,14 @@
 #include "index_buffer.hpp"
 
 #include <GL/glew.h>
+#include <cstring>
 
 #include "global_data.hpp"
 
 using namespace kckn;
 
 
-kckn::IndexBuffer::IndexBuffer() : count(0) {
+kckn::IndexBuffer::IndexBuffer() : count(0), batch_buffer(new unsigned int[global_data.max_index_buffer_size]) {
     glGenBuffers(1, &renderer_id);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer_id);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, global_data.max_index_buffer_size, nullptr, GL_DYNAMIC_DRAW);
@@ -17,10 +18,15 @@ IndexBuffer::~IndexBuffer() {
     glDeleteBuffers(1, &renderer_id);
 }
 
-void IndexBuffer::set_data(void* data, unsigned int element_offset, unsigned int element_count) {
-    glBufferSubData(
-        GL_ELEMENT_ARRAY_BUFFER, element_offset * sizeof(unsigned int), element_count * sizeof(unsigned int), data);
+void IndexBuffer::set_data(unsigned int* data, unsigned int element_offset, unsigned int element_count) {
+    for (unsigned int i = 0; i < element_count; i++) {
+        batch_buffer[element_offset + i] = data[i];
+    }
     count += element_count;
+}
+
+void IndexBuffer::upload_whole_batch_buffer() {
+    glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, global_data.max_index_buffer_size, batch_buffer.get());
 }
 
 void IndexBuffer::bind() const {

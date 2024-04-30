@@ -4,7 +4,7 @@
 namespace kckn {
     class MilionPointsScene : public Scene {
     private:
-        std::vector<Point> points;
+        std::vector<s_ptr<Point>> points;
 
     public:
         MilionPointsScene();
