@@ -8,6 +8,8 @@
 #include <sstream>
 #include <vector>
 
+#include "glm/gtc/matrix_transform.hpp"
+#include "global_data.hpp"
 #include "utils.hpp"
 using namespace kckn;
 
@@ -105,6 +107,16 @@ void Shader::create_program() {
         uniforms.emplace(proto_uniform.name, Uniform(proto_uniform, renderer_id));
     }
 }
+
+void Shader::set_default_uniforms() {
+    bind();
+    if (uniforms.contains("u_mvp")) {
+        glm::mat4 mvp =
+            glm::ortho(0.0f, (float) global_data.window_width, 0.0f, (float) global_data.window_height, -1.0f, 1.0f);
+        set_uniform<glm::mat4>("u_mvp", &mvp[0][0]);
+    }
+}
+
 unsigned int Shader::compile_shader(unsigned int type, const std::string& source) {
     unsigned int id = glCreateShader(type);
     const char* src = source.c_str();

@@ -7,8 +7,9 @@ Renderer::Renderer() {
     // Add default shaders
 
     shader_register["color.glsl"].push_back(std::make_shared<Shader>("color.glsl"));
+    shader_register["color.glsl"][0]->set_default_uniforms();
     shader_register["texture.glsl"].push_back(std::make_shared<Shader>("texture.glsl"));
-
+    shader_register["texture.glsl"][0]->set_default_uniforms();
 
     vb_register.push_back(std::make_shared<VertexBuffer>());
     ib_register.push_back(std::make_shared<IndexBuffer>());

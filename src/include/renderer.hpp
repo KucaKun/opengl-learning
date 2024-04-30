@@ -34,7 +34,7 @@ namespace kckn {
 
         /// Creates a whole lot of objects and adds it to the register
         template <typename T, typename... A>
-        std::vector<s_ptr<T>> create_many(int count, A... args) {
+        std::vector<s_ptr<T>> create_many(size_t count, A... args) {
             std::vector<s_ptr<T>> subvector;
             subvector.reserve(count);
             for (size_t i = 0; i < count; i++) {

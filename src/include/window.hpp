@@ -7,7 +7,6 @@
 #include <imgui.h>
 #include <memory>
 
-#include "scene.hpp"
 namespace kckn {
     class Window {
         GLFWwindow* window;
@@ -23,7 +22,7 @@ namespace kckn {
         void clear();
         void draw_imgui();
         void prepare_frame();
-        void prepare_imgui(std::shared_ptr<Scene>& scene);
+        void prepare_imgui();
         void finalize_frame();
         void unbind();
     };

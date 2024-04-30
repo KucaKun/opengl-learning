@@ -28,7 +28,7 @@ namespace kckn {
         void create_program();
         void bind() const;
         void unbind() const;
-
+        void set_default_uniforms();
         template <typename T, typename... A>
         void set_uniform(std::string uniform_name, A... args) {
             if (uniforms.contains(uniform_name)) {
