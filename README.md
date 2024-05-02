@@ -6,18 +6,20 @@ imgui is built from source
 
 
 TODO:
- - make particles move in what direction they want
- - fix colors
+ - make million particles faster (currently its 2.5fps)
+    - make a object manager to move code from draw_all
+        - optimize size of draw_calls
+    - make pixel color one byte per channel instead of 4
+    - maybe google benchmark for testing snippets
+ - move stuff from hpp to cpp files
+
+
  - clear buffer on scene exit
- - make a object manager
  - global buffer registration to be aware of all buffers and their sizes
  - handle removing stuff from master buffer
- - make pixel color one byte per channel
- - move stuff from hpp to cpp files
  - generate shaders on the fly, not relying on text files
  - handle mouse and keyboard input
  - 2d lighting scene 
- - maybe google benchmark for testing snippets
  - gpu time when gpu will actually have stuff to do
  - ui and text rendering capabilities
  - procedural animations
