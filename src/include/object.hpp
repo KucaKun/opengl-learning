@@ -108,6 +108,8 @@ namespace kckn {
             y_direction = direction_randomer(gen) / 10.0f;
 
             speed = speed_randomer(gen) / 10.0f;
+            // blue is slow, red is fast
+            set_color(0.2f + speed / 10.f, 0.3f, 0.6f - speed / 10.f, 1.0f);
         }
         void move_randomly() {
             auto random_x   = x_direction + speed_randomer(gen) / 10.f;
@@ -115,7 +117,7 @@ namespace kckn {
             auto normalizer = sqrt(random_x * random_x + random_y * random_y);
             random_x /= normalizer;
             random_y /= normalizer;
-            Point::move(random_x, random_y);
+            Point::move(random_x * speed, random_y * speed);
         }
     };
 
