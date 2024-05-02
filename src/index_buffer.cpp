@@ -19,9 +19,7 @@ IndexBuffer::~IndexBuffer() {
 }
 
 void IndexBuffer::set_data(unsigned int* data, unsigned int element_offset, unsigned int element_count) {
-    for (unsigned int i = 0; i < element_count; i++) {
-        batch_buffer[element_offset + i] = data[i];
-    }
+    std::memcpy(batch_buffer.get() + element_offset, data, element_count * sizeof(unsigned int));
     count += element_count;
 }
 

@@ -109,7 +109,7 @@ namespace kckn {
 
             speed = speed_randomer(gen) / 10.0f;
             // blue is slow, red is fast
-            set_color(0.2f + speed / 10.f, 0.3f, 0.6f - speed / 10.f, 1.0f);
+            set_color(0 + speed, 0.4f, 1 - speed, 1.0f);
         }
         void move_randomly() {
             auto random_x   = x_direction + speed_randomer(gen) / 10.f;
