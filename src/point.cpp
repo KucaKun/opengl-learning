@@ -2,7 +2,7 @@
 
 #include <GL/glew.h>
 namespace kckn {
-    Point::Point(float x, float y) : Object(), vertex{x, y, 0.2f, 0.3f, 0.6f, 1.0f} {
+    Point::Point(float x, float y) : Object(), vertex{x, y, 100, 100, 100, 255} {
         renderer_id = obj_ctr++;
         index       = renderer_id;
     }

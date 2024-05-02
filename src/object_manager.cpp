@@ -7,7 +7,7 @@ ObjectManager::ObjectManager() {
 
     layouts.push_back(std::make_shared<VertexBufferLayout>());
     layouts[0]->push(GL_FLOAT, 2);
-    layouts[0]->push(GL_FLOAT, 4);
+    layouts[0]->push(GL_UNSIGNED_BYTE, 4);
 
     vertex_arrays[0]->add_buffer(vertex_buffers[0], layouts[0]);
 }
@@ -45,11 +45,13 @@ void ObjectManager::update_batch_buffers() {
 
     vertex_buffers[0]->bind();
     if (vertex_data_changed) {
+        vertex_buffers[0]->bind();
         vertex_buffers[0]->upload_whole_batch_buffer();
     }
 
     index_buffers[0]->bind();
     if (index_data_changed) {
+        index_buffers[0]->bind();
         index_buffers[0]->upload_whole_batch_buffer();
     }
 }

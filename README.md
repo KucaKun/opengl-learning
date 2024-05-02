@@ -7,9 +7,7 @@ imgui is built from source
 
 TODO:
  - make million particles faster (currently its 2.5fps)
-    - make a object manager to move code from draw_all
-        - optimize size of draw_calls
-    - make pixel color one byte per channel instead of 4
+    - optimize size of draw calls (not use upload_whole_batch_buffer)
     - maybe google benchmark for testing snippets
 
 

@@ -2,13 +2,13 @@
 #version 330 core
 
 layout(location = 0) in vec4 i_position;
-layout(location = 1) in vec4 i_color;
+layout(location = 1) in ivec4 i_color;
 uniform mat4 u_mvp;
 out vec4 v_color;
 
 void main() {
     gl_Position = u_mvp*i_position;
-    v_color = i_color;
+    v_color = i_color/255.0;
 }
 
 #shader fragment

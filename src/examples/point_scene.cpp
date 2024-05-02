@@ -6,9 +6,9 @@ using namespace kckn;
 
 PointScene::PointScene() : Scene() {
     auto point = renderer.object_manager.create<Point>(global_data.window_width / 2, global_data.window_height / 2);
-    point->set_color(0.0f, 1.0f, 0.0f, 1.0f);
+    point->set_color(0, 255, 0, 255);
     auto p2 = renderer.object_manager.create<Point>(global_data.window_width / 2 + 20, global_data.window_height / 2);
-    p2->set_color(0.0f, 0.0f, 1.0f, 1.0f);
+    p2->set_color(0, 0, 255, 255);
 }
 
 void PointScene::on_clean() {}
