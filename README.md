@@ -6,11 +6,13 @@ imgui is built from source
 
 
 TODO:
- - set data for all objects in one call 
+ - make particles move in what direction they want
+ - fix colors
+ - clear buffer on scene exit
+ - make a object manager
  - global buffer registration to be aware of all buffers and their sizes
  - handle removing stuff from master buffer
  - make pixel color one byte per channel
- - clear buffer on scene exit
  - move stuff from hpp to cpp files
  - generate shaders on the fly, not relying on text files
  - handle mouse and keyboard input

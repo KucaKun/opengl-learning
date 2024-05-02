@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <random>
 #include <utility>
 #include <vector>
 
@@ -85,6 +86,36 @@ namespace kckn {
                 vertex.color.b -= 1;
             }
             has_changed = true;
+        }
+    };
+    class RandomParticle : public Point {
+        float x_direction;
+        float y_direction;
+        float speed;
+        std::random_device rd;
+        std::mt19937 gen;
+        std::uniform_int_distribution<int> speed_randomer;
+        std::uniform_int_distribution<int> direction_randomer;
+
+    public:
+        RandomParticle(float x, float y)
+            : Point(x, y),
+              gen(rd()),
+              speed_randomer(-10, 10),
+              direction_randomer(-10, 10) {
+
+            x_direction = direction_randomer(gen) / 10.0f;
+            y_direction = direction_randomer(gen) / 10.0f;
+
+            speed = speed_randomer(gen) / 10.0f;
+        }
+        void move_randomly() {
+            auto random_x   = x_direction + speed_randomer(gen) / 10.f;
+            auto random_y   = y_direction + speed_randomer(gen) / 10.f;
+            auto normalizer = sqrt(random_x * random_x + random_y * random_y);
+            random_x /= normalizer;
+            random_y /= normalizer;
+            Point::move(random_x, random_y);
         }
     };
 
