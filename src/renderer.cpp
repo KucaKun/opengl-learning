@@ -31,7 +31,7 @@ void Renderer::draw_all() {
     for (auto& object : object_register.at(GL_POINTS)) {
 
         if (object->has_changed) {
-            auto offset = object->renderer_id * sizeof(object->get_vertex_data());
+            auto offset = object->renderer_id * sizeof(*object->get_vertex_data());
             if (!vertex_data_changed) {
                 vertex_first_offset = offset;
             }

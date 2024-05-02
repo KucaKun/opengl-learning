@@ -5,7 +5,7 @@
 using namespace kckn;
 int main(void) {
     std::shared_ptr<Window> window = std::make_shared<Window>(global_data.window_width, global_data.window_height);
-    std::shared_ptr<Scene> current_scene = std::make_shared<MilionPointsScene>();
+    std::shared_ptr<Scene> current_scene = std::make_shared<PointScene>();
     while (!window->should_close()) {
         window->prepare_frame();
         window->prepare_imgui();
