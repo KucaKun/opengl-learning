@@ -11,7 +11,6 @@ TODO:
         - optimize size of draw_calls
     - make pixel color one byte per channel instead of 4
     - maybe google benchmark for testing snippets
- - move stuff from hpp to cpp files
 
 
  - clear buffer on scene exit

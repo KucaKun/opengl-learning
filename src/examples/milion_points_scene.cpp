@@ -7,8 +7,8 @@
 using namespace kckn;
 
 MilionPointsScene::MilionPointsScene() : Scene() {
-    particles =
-        renderer.create_many<RandomParticle>(1000000, global_data.window_width / 2, global_data.window_height / 2);
+    particles = renderer.object_manager.create_many<RandomParticle>(
+        1000000, global_data.window_width / 2, global_data.window_height / 2);
 }
 
 void MilionPointsScene::on_clean() {}

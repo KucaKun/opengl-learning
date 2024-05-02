@@ -29,6 +29,7 @@ set(SOURCES
     src/object.cpp
     src/point.cpp
     src/random_particle.cpp
+    src/object_manager.cpp
     src/examples/point_scene.cpp
     src/examples/raw_scene.cpp
 
