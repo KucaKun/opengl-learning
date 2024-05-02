@@ -1,6 +1,7 @@
 #include "examples/point_scene.hpp"
 
 #include "global_data.hpp"
+#include "point.hpp"
 using namespace kckn;
 
 PointScene::PointScene() : Scene() {

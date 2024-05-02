@@ -17,14 +17,8 @@ VertexBuffer::~VertexBuffer() {
 }
 
 void VertexBuffer::set_data(void* data, unsigned int offset, unsigned int size) {
-    // glBufferSubData(GL_ARRAY_BUFFER, offset, size, data);
     std::memcpy(batch_buffer.get() + offset, data, size);
 }
-
-int VertexBuffer::get_batch_offset(int obj_id) const {
-    return obj_id * sizeof(Vertex);
-}
-
 
 void VertexBuffer::upload_whole_batch_buffer() {
     glBufferSubData(GL_ARRAY_BUFFER, 0, global_data.max_vertex_buffer_size, batch_buffer.get());

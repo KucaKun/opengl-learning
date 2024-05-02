@@ -1,4 +1,4 @@
 #include "object.hpp"
 namespace kckn {
-    size_t Object::obj_ctr = 0;
+    unsigned int Object::obj_ctr = 0;
 } // namespace kckn

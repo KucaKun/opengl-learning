@@ -1,5 +1,5 @@
 #pragma once
-#include "object.hpp"
+#include "random_particle.hpp"
 #include "scene.hpp"
 namespace kckn {
     class MilionPointsScene : public Scene {

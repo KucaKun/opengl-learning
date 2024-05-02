@@ -27,6 +27,8 @@ set(SOURCES
     src/texture.cpp
     src/window.cpp
     src/object.cpp
+    src/point.cpp
+    src/random_particle.cpp
     src/examples/point_scene.cpp
     src/examples/raw_scene.cpp
 
