@@ -35,7 +35,7 @@ namespace kckn {
     }
 
 
-    void Point::set_color(float r, float g, float b, float a) {
+    void Point::set_color(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
         vertex.color.r = r;
         vertex.color.g = g;
         vertex.color.b = b;
@@ -44,7 +44,8 @@ namespace kckn {
     }
 
 
-    void Point::move_color(float r_offset, float g_offset, float b_offset, float a_offset) {
+    void Point::move_color(
+        unsigned char r_offset, unsigned char g_offset, unsigned char b_offset, unsigned char a_offset) {
 
         vertex.color.r += r_offset;
         vertex.color.g += g_offset;

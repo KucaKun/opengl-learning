@@ -16,8 +16,8 @@ namespace kckn {
         void set_position(float x, float y) override;
 
         void move(float x_offset, float y_offset) override;
-        void set_color(float r, float g, float b, float a) override;
-        void move_color(float r_offset, float g_offset, float b_offset, float a_offset);
+        void set_color(unsigned char r, unsigned char g, unsigned char b, unsigned char a) override;
+        void move_color(unsigned char r_offset, unsigned char g_offset, unsigned char b_offset, unsigned char a_offset);
     };
 
 } // namespace kckn
