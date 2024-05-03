@@ -1,4 +1,6 @@
 #include "object_manager.hpp"
+
+#include <iostream>
 using namespace kckn;
 ObjectManager::ObjectManager() {
     vertex_buffers.push_back(std::make_shared<VertexBuffer>());
@@ -43,13 +45,11 @@ void ObjectManager::update_batch_buffers() {
         }
     }
 
-    vertex_buffers[0]->bind();
     if (vertex_data_changed) {
         vertex_buffers[0]->bind();
         vertex_buffers[0]->upload_whole_batch_buffer();
     }
 
-    index_buffers[0]->bind();
     if (index_data_changed) {
         index_buffers[0]->bind();
         index_buffers[0]->upload_whole_batch_buffer();

@@ -5,7 +5,11 @@
 #include "error_handling.hpp"
 using namespace kckn;
 
-Window::Window(int _width, int _height) : width(_width), height(_height), frame_ctr(0), show_debug_window(true) {
+Window::Window(int _width, int _height, bool hidden)
+    : width(_width),
+      height(_height),
+      frame_ctr(0),
+      show_debug_window(true) {
 
     /* Initialize the library */
     if (!glfwInit()) {
@@ -16,6 +20,9 @@ Window::Window(int _width, int _height) : width(_width), height(_height), frame_
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
+    if (hidden) {
+        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+    }
 
     /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(width, height, "Hello World", NULL, NULL);
@@ -47,7 +54,12 @@ Window::Window(int _width, int _height) : width(_width), height(_height), frame_
 }
 
 Window::~Window() {
-    unbind();
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+
+    glfwDestroyWindow(window);
+    glfwTerminate();
 }
 
 
@@ -83,13 +95,4 @@ void Window::draw_imgui() {
 void Window::finalize_frame() {
     glfwSwapBuffers(window);
     frame_ctr++;
-}
-
-void Window::unbind() {
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
-
-    glfwDestroyWindow(window);
-    glfwTerminate();
 }

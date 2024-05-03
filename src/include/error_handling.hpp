@@ -99,8 +99,9 @@ namespace kckn {
             _severity = "UNKNOWN";
             break;
         }
-
-        std::cout << std::format("id: {} type:{} sev:{} from:{}\n {}\n\n", id, _type, _severity, _source, msg);
+        if (severity != GL_DEBUG_SEVERITY_NOTIFICATION) {
+            std::cout << std::format("id: {} type:{} sev:{} from:{}\n {}\n\n", id, _type, _severity, _source, msg);
+        }
         // throw if severity is high
         if (severity == GL_DEBUG_SEVERITY_HIGH) {
             throw std::runtime_error(

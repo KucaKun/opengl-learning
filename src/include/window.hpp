@@ -16,7 +16,7 @@ namespace kckn {
         const char* glsl_version;
 
     public:
-        Window(int width, int height);
+        Window(int width, int height, bool hidden = false);
         ~Window();
         bool should_close();
         void clear();

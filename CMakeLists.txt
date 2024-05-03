@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.4...3.28 FATAL_ERROR)
 project(opengl-learning)
 
 include(testing.cmake)
+include(benchmarking.cmake)
 enable_testing()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -Wall")
@@ -44,6 +45,9 @@ add_subdirectory(googletest)
 
 test_me_motherfucker(vertex_buffer_layout_test)
 test_me_motherfucker(shader_compile_test)
+
+add_subdirectory(benchmark)
+i_bench_100(loop_milion_points)
 
 add_custom_command(TARGET main POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
