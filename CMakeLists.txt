@@ -17,6 +17,7 @@ include_directories(src/external/include)
 include_directories(glew/include)
 include_directories(imgui)
 include_directories(glfw/include)
+include_directories(spdlog/include)
 
 set(SOURCES
     src/vertex_buffer.cpp
@@ -64,6 +65,9 @@ add_subdirectory(glfw)
 
 link_directories(imgui)
 add_subdirectory(imgui)
+
+link_directories(spdlog)
+add_subdirectory(spdlog)
 
 add_compile_definitions(GLEW_STATIC)
 

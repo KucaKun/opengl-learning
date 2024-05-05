@@ -85,7 +85,8 @@
         "imgui/**": true,
         "glm/**": true,
         "googletest/**": true,
-        "benchmark/**": true
+        "benchmark/**": true,
+        "spdlog/**": true
     },
     "search.exclude": {
         "build/**": true,
@@ -94,7 +95,8 @@
         "imgui/**": true,
         "glm/**": true,
         "googletest/**": true,
-        "benchmark/**": true
+        "benchmark/**": true,
+        "spdlog/**": true
     },
     "editor.formatOnSave": true
 }
