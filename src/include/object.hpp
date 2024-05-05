@@ -1,14 +1,21 @@
 #pragma once
+#include <list>
+
 #include "vertex.hpp"
 namespace kckn {
     class Object {
     protected:
-        static unsigned int obj_ctr;
-
     public:
-        unsigned int renderer_id;
+        /// Manged by object_manager, renderer_id is used to get data offset in batch buffers
+        /// 0xffffffff is an invalid id, object is nondrawable
+        unsigned int renderer_id = 0xffffffff;
+
         bool has_changed      = true;
         bool has_mesh_changed = true;
+
+
+        virtual void set_renderer_id(unsigned int id) = 0;
+        virtual void set_index_data()                 = 0;
 
         virtual Vertex* get_vertex_data()                                                          = 0;
         virtual unsigned int* get_index_data()                                                     = 0;

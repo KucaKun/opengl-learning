@@ -9,6 +9,8 @@ namespace kckn {
     public:
         Point(float x, float y);
 
+        void set_renderer_id(unsigned int id);
+        void set_index_data();
         static int get_draw_mode();
         Vertex* get_vertex_data();
         unsigned int* get_index_data();

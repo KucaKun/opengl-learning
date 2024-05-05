@@ -7,7 +7,7 @@
 using namespace kckn;
 
 MilionPointsScene::MilionPointsScene() : Scene() {
-    particles = renderer.object_manager.create_many<RandomParticle>(
+    particles = object_manager.create_many<RandomParticle>(
         1000000, global_data.window_width / 2, global_data.window_height / 2);
 }
 
@@ -18,7 +18,7 @@ void MilionPointsScene::on_render() {
     for (auto& particle : particles) {
         particle->move_randomly();
     }
-    renderer.draw_all();
+    renderer.draw_all(object_manager);
 }
 
 void MilionPointsScene::on_imgui() {}

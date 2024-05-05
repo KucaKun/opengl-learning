@@ -13,11 +13,9 @@ namespace kckn {
         std::map<std::string, std::vector<s_ptr<Shader>>> shader_register;
 
     public:
-        ObjectManager object_manager;
-
         Renderer();
 
         /// @brief Draws all objects in the object register
-        void draw_all();
+        void draw_all(ObjectManager& object_manager);
     };
 } // namespace kckn

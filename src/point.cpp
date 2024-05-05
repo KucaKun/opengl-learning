@@ -3,12 +3,18 @@
 #include <GL/glew.h>
 namespace kckn {
     Point::Point(float x, float y) : Object(), vertex{x, y, 100, 100, 100, 255} {
-        renderer_id = obj_ctr++;
-        index       = renderer_id;
+        index = renderer_id;
     }
 
     int Point::get_draw_mode() {
         return GL_POINTS;
+    }
+    void Point::set_renderer_id(unsigned int id) {
+        renderer_id = id;
+        set_index_data();
+    }
+    void Point::set_index_data() {
+        index = renderer_id;
     }
     Vertex* Point::get_vertex_data() {
         return &vertex;

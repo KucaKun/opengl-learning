@@ -11,7 +11,7 @@ Renderer::Renderer() {
     shader_register["texture.glsl"][0]->set_default_uniforms();
 }
 
-void Renderer::draw_all() {
+void Renderer::draw_all(ObjectManager& object_manager) {
     shader_register.at("color.glsl")[0]->bind();
     object_manager.update_batch_buffers();
     object_manager.bind_for_draw();

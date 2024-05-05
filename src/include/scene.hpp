@@ -7,9 +7,10 @@ namespace kckn {
     class Scene {
     protected:
         Renderer renderer;
+        ObjectManager object_manager;
 
     public:
-        Scene() : renderer(){};
+        Scene() : renderer(), object_manager(){};
         virtual ~Scene(){};
         virtual void on_clean() {};
         virtual void on_render() {};
