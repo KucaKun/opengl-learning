@@ -94,7 +94,7 @@ void Shader::create_program() {
         glGetProgramiv(renderer_id, GL_INFO_LOG_LENGTH, &length);
         char* message = (char*) alloca(length * sizeof(char));
         glGetProgramInfoLog(renderer_id, length, &length, message);
-        std::cout << "Failed to validate program:" << std::endl;
+        std::cout << "Failed to validate shader program." << std::endl;
         std::cout << message << std::endl;
         std::terminate();
     }
