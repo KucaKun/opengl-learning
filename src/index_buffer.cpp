@@ -23,6 +23,10 @@ void IndexBuffer::set_data(unsigned int* data, unsigned int element_offset, unsi
     count += element_count;
 }
 
+s_ptr<unsigned int[]> kckn::IndexBuffer::get_batch_buffer() {
+    return batch_buffer;
+}
+
 void IndexBuffer::upload_whole_batch_buffer() {
     glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, global_data.max_index_buffer_size, batch_buffer.get());
 }

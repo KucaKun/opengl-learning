@@ -47,6 +47,7 @@ add_subdirectory(googletest)
 
 test_me_motherfucker(vertex_buffer_layout_test)
 test_me_motherfucker(shader_compile_test)
+test_me_motherfucker(object_manager_test)
 
 add_subdirectory(benchmark)
 i_bench_100(loop_milion_points)

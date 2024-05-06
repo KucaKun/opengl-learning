@@ -10,6 +10,7 @@ namespace kckn {
         IndexBuffer();
         ~IndexBuffer();
         void set_data(unsigned int* data, unsigned int offset, unsigned int _count);
+        s_ptr<unsigned int[]> get_batch_buffer();
         void upload_whole_batch_buffer();
         void bind() const;
         void unbind() const;

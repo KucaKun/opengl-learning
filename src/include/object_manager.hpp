@@ -11,7 +11,7 @@
 namespace kckn {
 
     class ObjectManager {
-
+    protected:
         std::list<unsigned int> taken_obj_ids;
         std::list<unsigned int> freed_obj_ids;
 
@@ -29,6 +29,16 @@ namespace kckn {
 
     public:
         ObjectManager();
+        VertexBufferRegister& get_vertex_buffer() {
+            return vertex_buffer;
+        }
+        IndexBufferRegister& get_index_buffer() {
+            return index_buffer;
+        }
+        ObjectRegister& get_drawable_objects() {
+            return drawable_objects;
+        }
+
         void update_batch_buffers();
         void bind_for_draw();
 
